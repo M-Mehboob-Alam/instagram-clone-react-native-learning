@@ -1,118 +1,125 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import colors from './src/theme/colors';
+import fonts from './src/theme/fonts';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.post}>
+      <View style={styles.header}>
+        <Image
+          source={{uri: 'https://randomuser.me/api/portraits/men/1.jpg'}}
+          style={styles.userAvatar}
+        />
+        <Text style={styles.username}>Alumi</Text>
+        <Icon name="ellipsis-h" style={styles.threeDots} size={16} />
+      </View>
+      <Image
+        source={{uri: 'https://picsum.photos/200'}}
+        style={styles.postImage}
+      />
+      <View style={styles.footer}>
+        <View style={styles.iconContainer}>
+          <Icon
+            name="heart-o"
+            size={24}
+            color={colors.black}
+            style={styles.icon}
+          />
+          <Icon
+            name="comment-o"
+            size={24}
+            color={colors.black}
+            style={styles.icon}
+          />
+          <Icon
+            name="bookmark-o"
+            size={24}
+            color={colors.black}
+            style={{marginLeft: 'auto'}}
+          />
+        </View>
+        <Text style={styles.liked}>
+          123 liked by <Text style={styles.bold}>alumi</Text> and{' '}
+          <Text style={styles.bold}>65 others</Text>
+        </Text>
+        <Text style={styles.text}>
+          <Text style={styles.bold}>Lorem</Text> ipsum dolor sit amet
+          consectetur adipisicing elit. Magni at, totam qui tenetur quos
+          voluptate consectetur debitis voluptatum reprehenderit ab consequatur
+          officia illo, adipisci dolores labore facilis neque. Nam, esse.
+        </Text>
+        {/* comments */}
+        <Text style={styles.viewAllComments}>View All 66 Comments</Text>
+        <View style={styles.comments}>
+          <Text style={[styles.text, styles.commentText]}>
+            <Text style={styles.bold}>alumi</Text> Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Lorem, ipsum dolor sit amet explicabo.
+          </Text>
+          <Icon name="heart-o" size={14} color={{color: 'green'}} />
+        </View>
+      </View>
     </View>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
+};
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  post: {},
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: moderateScale(10),
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  userAvatar: {
+    width: moderateScale(40),
+    height: moderateVerticalScale(40),
+    borderRadius: moderateScale(20),
+    marginRight: 10,
+    aspectRatio: 1,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  username: {
+    fontWeight: fonts.weight.bold,
+    color: colors.black,
   },
-  highlight: {
-    fontWeight: '700',
+  threeDots: {
+    marginLeft: 'auto',
+    color: colors.black,
+  },
+  postImage: {
+    width: '100%',
+    aspectRatio: 1,
+  },
+  footer: {
+    padding: moderateScale(10),
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: moderateScale(10),
+    alignItems: 'center',
+  },
+  icon: {
+    marginHorizontal: moderateScale(5),
+  },
+  liked: {
+    color: colors.black,
+    paddingVertical: moderateVerticalScale(10),
+  },
+  bold: {
+    fontWeight: fonts.weight.bold,
+  },
+  text: {
+    color: colors.black,
+  },
+  comments: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  commentText: {
+    flex: 1,
+  },
+  viewAllComments: {
+    marginTop: moderateVerticalScale(10),
+    paddingBottom: 0,
   },
 });
-
 export default App;
